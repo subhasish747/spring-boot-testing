@@ -10,7 +10,7 @@ import org.hibernate.mapping.PrimaryKey;
 @Entity
 @Getter
 @Setter
-@Table(name = "epmployees"
+@Table(name = "employees"
 )
 public class Employee {
 
