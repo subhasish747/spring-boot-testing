@@ -11,16 +11,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@Testcontainers
 public class EmloyeeControllerIT {
+
+    @Container
+    private static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:latest").withUsername("username").withPassword("pass").withDatabaseName("ems");
+
+    static {
+
+
+    }
+
+
+    @DynamicPropertySource
+    public static void registerPgProperties(DynamicPropertyRegistry registry){
+        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
+        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+    }
+
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -38,8 +62,13 @@ public class EmloyeeControllerIT {
     //Junit test for
     @Test
     public void givenEmployyeObject_whenCreated_thenRetunSavedEmployee() throws Exception {
+        System.out.println("Postgres Details ");
+        System.out.println(postgreSQLContainer.getJdbcUrl());
+        System.out.println(postgreSQLContainer.getUsername());
+
         //precondition or set up
-        Employee employee = Employee.builder().id(1L).firstName("Satyajit").lastName("Ray").email("satyajit.ray@gmail.com").build();
+        Employee employee = Employee.builder().id(1L).firstName("Rishav").lastName("Dutta").email("satyajit.ray@gmail.com").build();
+
 
         //when - action or the behavior that we are going to test
         ResultActions response = mockMvc.perform(post("/api/employees/save").contentType(
