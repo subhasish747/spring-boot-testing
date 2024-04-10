@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: spring-app
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    enabled: true
+    change-log: classpath:/testcontainers/changelog-master.yml

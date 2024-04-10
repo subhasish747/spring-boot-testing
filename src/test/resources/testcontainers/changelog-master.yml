@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: testcontainers/includes/db.create-all-tables.yml

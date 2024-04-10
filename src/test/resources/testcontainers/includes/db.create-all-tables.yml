@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - logicalFilePath: "db.create-all-tables.yml"
+  - changeSet:
+      id: 1
+      author: sn
+      changes:
+        - sqlFile:
+            encoding: utf8
+            path: testcontainers/scripts/CREATE_ALL_TABLES.sql
