@@ -45,6 +45,7 @@ public class EmloyeeControllerIT {
         registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
         registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
         registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+        registry.add("spring.liquibase.contexts", () -> "!prod");
     }
 
 
@@ -57,11 +58,11 @@ public class EmloyeeControllerIT {
     @Autowired
     private ObjectMapper objectMapper ;
 
-    @BeforeEach
+   /* @BeforeEach
     void setUp(){
         employeeRepository.deleteAll();
     }
-
+  */
     //Junit test for
     @Test
     public void givenEmployyeObject_whenCreated_thenRetunSavedEmployee() throws Exception {

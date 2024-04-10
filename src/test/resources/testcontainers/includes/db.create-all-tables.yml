@@ -4,6 +4,40 @@ databaseChangeLog:
       id: 1
       author: sn
       changes:
-        - sqlFile:
-            encoding: utf8
-            path: testcontainers/scripts/CREATE_ALL_TABLES.sql
+        - sql:
+            dbms: postgresql
+            sql: CREATE SCHEMA IF NOT EXISTS dev;
+
+  - changeSet:
+      id: 2
+      author: sn
+#      changes:
+#        - sqlFile:
+#            encoding: utf8
+#            path: testcontainers/scripts/CREATE_ALL_TABLES.sql
+      changes:
+        - createTable:
+ #           schemaName: dev
+            tableName: employees
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: first_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                    unique: true

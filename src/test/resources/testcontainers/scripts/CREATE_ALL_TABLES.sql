@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS dev ;
 
-CREATE TABLE employee (
+CREATE TABLE employees (
     id BIGSERIAL PRIMARY KEY,
     firstname VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
