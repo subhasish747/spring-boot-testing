@@ -7,3 +7,10 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:/testcontainers/changelog-master.yml
+wiremock-config:
+  proxies:
+    - name: university
+      port: 9081
+      url: http://universities.hipolabs.com
+      recording: false
+universitiesBaseURL: http://localhost:9081

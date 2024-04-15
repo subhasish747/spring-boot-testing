@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class EmloyeeControllerIT {
 
     @Container
-    private static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:latest").withUsername("username").withPassword("pass").withDatabaseName("ems");
+    private static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:latest").withUsername("username").withPassword("pass").withDatabaseName("ems").withUrlParam("currentSchema","dev");
 
     static {
 
@@ -45,6 +45,8 @@ public class EmloyeeControllerIT {
         registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
         registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
         registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+        registry.add("spring.datasource.schema", () -> "dev" );
         registry.add("spring.liquibase.contexts", () -> "!prod");
     }
 
